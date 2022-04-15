@@ -691,20 +691,22 @@ a:focus {
 /* footer section*/
 
 .footer_section {
-  position: relative;
-  background-color: $white;
-  text-align: center;
+    position: relative;
+    background-color: violet;
+    text-align: center;
 
-  p {
-    color: $primary2;
-    padding: 25px 0;
-    margin: 0;
 
-    a {
-      color: inherit;
+    p {
+        color: $primary2;
+        padding: 25px 0;
+        margin: 0;
+
+        a {
+            color: inherit;
+        }
     }
-  }
 }
+
 
 
 // end footer section
