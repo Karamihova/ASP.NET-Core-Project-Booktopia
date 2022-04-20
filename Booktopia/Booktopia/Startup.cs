@@ -19,7 +19,7 @@ namespace Booktopia
         public void ConfigureServices(IServiceCollection services)
         {
             services
-                .AddDbContext<ApplicationDbContext>(options =>
+                .AddDbContext<BooktopiaDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             services
@@ -33,7 +33,7 @@ namespace Booktopia
                     options.Password.RequireNonAlphanumeric = false;
                     options.Password.RequireUppercase = false;
                 })
-                .AddEntityFrameworkStores<ApplicationDbContext>();
+                .AddEntityFrameworkStores<BooktopiaDbContext>();
 
             services.
                 AddControllersWithViews();
