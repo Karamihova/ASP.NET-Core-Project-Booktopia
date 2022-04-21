@@ -576,7 +576,7 @@ a:focus {
   padding-right: 35px;
 }
 
-.contact_section input {
+/*.contact_section input {
   width: 100%;
   border: 0;
   height: 50px;
@@ -607,7 +607,7 @@ a:focus {
 .contact_section input.message-box {
   height: 120px;
   border-radius: 15px;
-}
+}*/
 
 .contact_section .btn-box {
   display: -webkit-box;
@@ -638,9 +638,10 @@ a:focus {
 }
 
 .info_section {
-  background-color: #063547;
-  color: #ffffff;
-  padding: 45px 0 15px 0;
+    background-color: #063547;
+    color: #ffffff;
+    padding: 45px 0 15px 0;
+    margin-top: 50px;
 }
 
 .info_section h4 {
