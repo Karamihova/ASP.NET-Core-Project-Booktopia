@@ -6,8 +6,7 @@
     public class WriteBookFormModel
     {
         [Required]
-        [MinLength(TitleMinLength)]
-        [MaxLength(TitleMaxLength)]
+        [StringLength(TitleMaxLength, MinimumLength = TitleMinLength, ErrorMessage = "Title should be between {2} and {1} characters long")]
         public string Title { get; set; }
 
         [Required]
