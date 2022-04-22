@@ -5,18 +5,17 @@
     using static Data.DataConstants;
     public class WriteBookFormModel
     {
-        [Required]
-        [StringLength(TitleMaxLength, MinimumLength = TitleMinLength, ErrorMessage = "Title should be between {2} and {1} characters long")]
+        [Required(ErrorMessage = "Title of book is required.")]
+        [StringLength(TitleMaxLength, MinimumLength = TitleMinLength, ErrorMessage = "Title should be between {2} and {1} characters long.")]
         public string Title { get; set; }
 
-        [Required]
-        [MinLength(AnnotationMinLength)]
-        [MaxLength(AnnotationMaxLength)]
+        [Required(ErrorMessage = "Annotation of book is required.")]
+        [StringLength(AnnotationMaxLength, MinimumLength = AnnotationMinLength, ErrorMessage = "Annotation should be between {2} and {1} characters long.")]
         public string Annotation { get; set; }
 
         [Display(Name = "Image URL")]
-        [Required]
-        [Url]
+        [Required(ErrorMessage = "Image URL of is required.")]
+        [Url(ErrorMessage = "Invalid URL.")]
         public string ImageUrl { get; set; }
 
         [Display(Name = "Category")]

@@ -1,6 +1,7 @@
 ﻿namespace Booktopia.Controllers
 {
     using Booktopia.Data;
+    using Booktopia.Data.Models;
     using Booktopia.Models.Books;
     using Microsoft.AspNetCore.Mvc;
     using System.Collections.Generic;
@@ -22,11 +23,27 @@
         [HttpPost]
         public IActionResult Write(WriteBookFormModel book)
         {
+            if (!data.Categories.Any(c => c.Id == book.CategoryId))
+            {
+                ModelState.AddModelError(nameof(book.CategoryId), "Category type is not valid.");
+            }
+
             if (!ModelState.IsValid)
             {
                 book.Categories = this.GetCategories();
                 return View(book);
             }
+
+            var bookData = new Book
+            {
+                Title = book.Title,
+                Annotation = book.Annotation,
+                ImageUrl = book.ImageUrl,
+                CategoryId = book.CategoryId
+            };
+
+            this.data.Books.Add(bookData);
+            this.data.SaveChanges();
 
             return RedirectToAction("All", "Books");
         }
