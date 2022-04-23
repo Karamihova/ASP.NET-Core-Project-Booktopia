@@ -1,5 +1,6 @@
 ﻿namespace Booktopia.Data.Models
 {
+    using System;
     using System.ComponentModel.DataAnnotations;
     using static DataConstants;
     public class Chapter
@@ -13,6 +14,8 @@
 
         [Required,StringLength(ChapterMaxText)]  
         public string Text { get; set; }
+
+        public DateTime CreatedOn { get; set; } = DateTime.UtcNow;
 
         [Required]
         public int BookId { get; set; }

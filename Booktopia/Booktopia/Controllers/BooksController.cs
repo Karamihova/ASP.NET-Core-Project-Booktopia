@@ -13,7 +13,23 @@
 
         public BooksController(BooktopiaDbContext data) => this.data = data;
 
-        public IActionResult All() => View();
+        public IActionResult All()
+        {
+            var books = this.data
+                .Books
+                .OrderByDescending(x => x.CreatedOn)
+                .Select(b => new BookListingViewModel
+                    {
+                        Id = b.Id,
+                        Title = b.Title,
+                        Annotation = b.Annotation.Substring(0, 200),
+                        ImageUrl = b.ImageUrl,
+                        Category = b.Category.Type
+                    })
+                .ToList();
+
+            return View(books);
+        }
 
         public IActionResult Write() => View(new WriteBookFormModel
         {
@@ -45,7 +61,7 @@
             this.data.Books.Add(bookData);
             this.data.SaveChanges();
 
-            return RedirectToAction("All", "Books");
+            return RedirectToAction(nameof(All));
         }
 
         private ICollection<BookCategoryViewModel> GetCategories()
