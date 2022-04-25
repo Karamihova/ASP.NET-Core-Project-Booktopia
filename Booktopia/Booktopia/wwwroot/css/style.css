@@ -554,6 +554,7 @@ a:focus {
 .blog_section .box .detail-box {
   padding: 45px 25px 25px 25px;
   background: #ffffff;
+  width: 92%;
 }
 
 .blog_section .box .detail-box h5 {
