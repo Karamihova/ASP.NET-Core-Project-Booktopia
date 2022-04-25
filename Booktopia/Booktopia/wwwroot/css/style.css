@@ -564,9 +564,9 @@ a:focus {
   font-size: 15px;
 }
 
-.blog_section .box .detail-box a {
+/*.blog_section .box .detail-box a {
   color: #44b89d;
-}
+}*/
 
 .contact_section h2 {
   margin-bottom: 45px;
@@ -575,6 +575,23 @@ a:focus {
 .contact_section form {
   padding-right: 35px;
 }
+
+.blog_section a {
+    display: inline-block;
+    padding: 10px 45px;
+    background-color: #44b89d;
+    color: #ffffff;
+    border-radius: 45px;
+    border: 1px solid #44b89d;
+    -webkit-transition: all 0.3s;
+    transition: all 0.3s;
+    margin-top: 15px;
+}
+
+    .blog_section a:hover {
+        background-color: transparent;
+        color: #44b89d;
+    }
 
 /*.contact_section input {
   width: 100%;

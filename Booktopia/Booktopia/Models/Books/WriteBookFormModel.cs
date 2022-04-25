@@ -20,6 +20,7 @@
         public string ImageUrl { get; set; }
 
         [Display(Name = "Category")]
+        [Required(ErrorMessage = "Category type is required.")]
         public int CategoryId { get; set; }
 
         public ICollection<BookCategoryViewModel> Categories { get; set; }

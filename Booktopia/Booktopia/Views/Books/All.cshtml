@@ -11,7 +11,21 @@
           From Our Bookshelves
         </h2>
       </div>
+
+      @if(!Model.Any())
+            {
+                <div>
+                    <h4 class="text-center">There are no books available.</h4>
+                </div>
+                <div class="text-center">
+                  <a asp-controller="Books" asp-action="Write" >
+                      Start Writing
+                    </a>
+               </div>
+            }
+
       <div class="row">
+            
             @foreach(var book in Model)
             {
                 <div class="col-md-4">
@@ -20,7 +34,7 @@
                           <img src="@book.ImageUrl" style="height: 240px;" alt="@book.Title" >
                           <h4 class="blog_date">
                             <span>
-                              Author name
+                              @book.Author
                             </span>
                           </h4>
                         </div>
