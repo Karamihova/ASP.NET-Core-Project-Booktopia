@@ -1,18 +1,18 @@
 ﻿namespace Booktopia.Data.Models
 {
     using System.ComponentModel.DataAnnotations;
-    using static DataConstants;
+    using static DataConstants.Review;
     public class Review
     {
         [Key]
         [Required]
         public int Id { get; set; }
 
-        [Required, StringLength(ReviewMaxText)]
+        [Required, StringLength(MaxText)]
         public string Text { get; set; }
 
         [Required]
-        [Range(ReviewMinRating, ReviewMaxRating)]
+        [Range(MinRating, MaxRating)]
         public int Rating { get; set; }
 
         [Required]

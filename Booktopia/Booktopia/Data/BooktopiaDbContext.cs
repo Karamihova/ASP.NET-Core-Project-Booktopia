@@ -1,6 +1,7 @@
 ﻿namespace Booktopia.Data
 {
     using Booktopia.Data.Models;
+    using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore;
 
@@ -20,6 +21,8 @@
         public DbSet<Quote> Quotes { get; set; }
 
         public DbSet<Review> Reviews { get; set; }
+
+        public DbSet<Author> Authors { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -45,6 +48,18 @@
                 .HasOne(c => c.Category)
                 .WithMany(b => b.Books)
                 .HasForeignKey(c => c.CategoryId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            builder.Entity<Book>()
+                .HasOne(a => a.Author)
+                .WithMany(b => b.WrittenBooks)
+                .HasForeignKey(a => a.AuthorId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            builder.Entity<Author>()
+                .HasOne<IdentityUser>()
+                .WithOne()
+                .HasForeignKey<Author>(a => a.UserId)
                 .OnDelete(DeleteBehavior.Restrict);
 
             base.OnModelCreating(builder);

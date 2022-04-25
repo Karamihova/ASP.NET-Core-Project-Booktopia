@@ -3,6 +3,7 @@
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using static Data.DataConstants;
+    using static Data.DataConstants.Book;
     public class WriteBookFormModel
     {
         [Required(ErrorMessage = "Title of book is required.")]

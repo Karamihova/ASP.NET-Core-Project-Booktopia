@@ -3,6 +3,7 @@
     using System;
     using System.ComponentModel.DataAnnotations;
     using static DataConstants;
+    using static DataConstants.Chapter;
     public class Chapter
     {
         [Key]
@@ -12,7 +13,7 @@
         [Required, StringLength(TitleMaxLength)]
         public string Title { get; set; }
 
-        [Required,StringLength(ChapterMaxText)]  
+        [Required,StringLength(MaxText)]  
         public string Text { get; set; }
 
         public DateTime CreatedOn { get; set; } = DateTime.UtcNow;

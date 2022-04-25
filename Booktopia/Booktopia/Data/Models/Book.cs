@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using static DataConstants;
+    using static DataConstants.Book;
     public class Book
     {
         [Key]
@@ -13,8 +14,11 @@
         [Required, StringLength(TitleMaxLength)]
         public string Title { get; set; }
 
-        //Author + AuthorId
-        // Status
+        [Required]
+        public int AuthorId { get; set; }
+
+        public Author Author { get; set; }
+
 
         [Required,StringLength(AnnotationMaxLength)]
         public string Annotation { get; set; }

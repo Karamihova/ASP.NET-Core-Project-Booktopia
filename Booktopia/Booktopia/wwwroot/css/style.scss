@@ -477,55 +477,60 @@ a:focus {
 
 // blog section
 .blog_section {
-  background-color: #f5f6f9;
+    background-color: #f5f6f9;
 
-  .box {
-    margin-top: 55px;
-    box-shadow: 0 0 5px 0 rgba($color: #000000, $alpha: .15);
+    .box {
+        margin-top: 55px;
+        box-shadow: 0 0 5px 0 rgba($color: #000000, $alpha: .15);
 
-    .img-box {
-      position: relative;
+        .img-box {
+            position: relative;
 
-      .blog_date {
-        position: absolute;
-        left: 25px;
-        bottom: 0;
-        padding: 10px 25px;
-        font-size: 18px;
-        background-color: $primary2;
-        margin: 0;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        text-align: center;
-        border: 3px solid $white;
-        color: $white;
-        border-radius: 45px;
-        transform: translateY(50%);
-      }
 
-      img {
-        width: 100%;
-      }
+            .blog_date {
+                position: absolute;
+                left: 25px;
+                bottom: 0;
+                padding: 10px 25px;
+                font-size: 18px;
+                background-color: $primary2;
+                margin: 0;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                text-align: center;
+                border: 3px solid $white;
+                color: $white;
+                border-radius: 45px;
+                transform: translateY(50%);
+            }
+
+            img {
+                width: 100%;
+            }
+        }
+
+        .detail-box {
+            padding: 45px 25px 25px 25px;
+            background: $white;
+
+            h5 {
+                font-weight: bold;
+            }
+
+            p {
+                font-size: 15px;
+            }
+
+            a {
+                color: $primary1;
+            }
+        }
     }
+}
 
-    .detail-box {
-      padding: 45px 25px 25px 25px;
-      background: $white;
-
-      h5 {
-        font-weight: bold;
-      }
-
-      p {
-        font-size: 15px;
-      }
-
-      a {
-        color: $primary1;
-      }
-    }
-  }
+.image-allign{
+    height: 200px;
 }
 
 // end blog section
