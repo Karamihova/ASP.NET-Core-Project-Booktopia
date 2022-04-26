@@ -89,6 +89,36 @@
             return View(authorBooks);
         }
 
+        [Route("Books/{id:int}")]
+        public IActionResult ById(int id)
+        {
+            var book = this.data.Books.FirstOrDefault(b => b.Id == id);
+            if (book == null)
+            {
+                return BadRequest();
+            }
+
+            var bookData = this.data
+                .Books
+                .Where(b => b.Id == id)
+                .Select(b => new BookViewModel
+                {
+                    Id = b.Id,
+                    Title=b.Title,
+                    Annotation=b.Annotation,
+                    ImageUrl =b.ImageUrl,
+                    CategoryType = b.Category.Type,
+                    AuthorName = b.Author.Name,
+                    ChaptersCount = b.Chapters.Count() == null ? 0 : b.Chapters.Count(),
+                    ReviewsCount = b.Reviews.Count() == null ? 0 : b.Reviews.Count(),
+                    Rating = b.Reviews.Average(r => r.Rating) == null ? 0 : b.Reviews.Average(r => r.Rating),
+                    QuotesCount = b.Quotes.Count() == null ? 0 : b.Quotes.Count()
+                })
+                .FirstOrDefault();
+
+            return View(bookData);
+        }
+
         private bool UserIsAuthor()
             => this.data
                 .Authors

@@ -7,7 +7,7 @@
                 <div class="col-md-4">
                       <div class="box">
                         <div class="img-box">
-                          <img src="@book.ImageUrl" style="height: 240px;" alt="@book.Title" >
+                          <img src="@book.ImageUrl" style="height: 400px;" alt="@book.Title" >
                           <h4 class="blog_date">
                             <span>
                               @book.Author
@@ -22,7 +22,7 @@
                           <p>
                             @book.Annotation...
                           </p>
-                          <a asp-controller="Books" asp-action="Book" asp-route-id="@book.Id">
+                          <a asp-controller="Books" asp-action="ById" asp-route-id="@book.Id">
                             Read More
                           </a>
                         </div>

@@ -1,0 +1,43 @@
+﻿@model BookViewModel
+
+@{
+    var title = Model.Title;
+    ViewData["Title"] = title;
+}
+
+<section class="about_section layout_padding">
+    <div class="container ">
+        <div class="heading_container heading_center" style="margin-bottom: 35px;">
+              <h2>
+                "@Model.Title" by <i>@Model.AuthorName</i> 
+              </h2>
+            </div>
+      <div class="row">
+        <div class="col-md-4">
+          <div class="img-box">
+            <img src="@Model.ImageUrl" alt="">
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="detail-box">
+            
+            <p>
+              @Model.Annotation
+            </p>
+            <a href="">
+              @Model.ChaptersCount Chapters
+            </a>
+            <a href="">
+              @Model.ReviewsCount Reviews
+            </a>
+            <a href="">
+              @Model.Rating Rating
+            </a>
+            <a href="">
+              @Model.QuotesCount Quotes
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
