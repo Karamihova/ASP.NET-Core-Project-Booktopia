@@ -4,6 +4,7 @@
     using Booktopia.Data.Models;
     using Booktopia.Infrastructure;
     using Booktopia.Models.Books;
+    using Booktopia.Services.Books;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using System.Collections.Generic;
@@ -12,25 +13,16 @@
     public class BooksController : Controller
     {
         private readonly BooktopiaDbContext data;
-
-        public BooksController(BooktopiaDbContext data) 
-            => this.data = data;
+        private readonly IBookService bookService;
+        public BooksController(BooktopiaDbContext data, IBookService bookService)
+        {
+            this.data = data;
+            this.bookService = bookService;
+        }
 
         public IActionResult All()
         {
-            var books = this.data
-                .Books
-                .OrderByDescending(x => x.CreatedOn)
-                .Select(b => new BookListingViewModel
-                    {
-                        Id = b.Id,
-                        Title = b.Title,
-                        Annotation = b.Annotation.Substring(0, 200),
-                        ImageUrl = b.ImageUrl,
-                        Category = b.Category.Type,
-                        Author = b.Author.Name
-                    })
-                .ToList();
+            var books = this.bookService.All();
 
             return View(books);
         }
@@ -88,6 +80,13 @@
             this.data.SaveChanges();
 
             return RedirectToAction(nameof(All));
+        }
+
+        public IActionResult ByAuthor()
+        {
+            var authorBooks = this.bookService.ByAuthor(User.GetId());
+
+            return View(authorBooks);
         }
 
         private bool UserIsAuthor()

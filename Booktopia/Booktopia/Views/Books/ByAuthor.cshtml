@@ -1,21 +1,21 @@
 ﻿@model IEnumerable<BookServiceModel>
 
 @{
-    ViewData["Title"] = "Books";
+    ViewData["Title"] = "My Works";
 }
 
 <section class="blog_section layout_padding">
     <div class="container">
       <div class="heading_container heading_center">
         <h2>
-          From Our Bookshelves
+         My Works
         </h2>
       </div>
 
       @if(!Model.Any())
             {
                 <div>
-                    <h4 class="text-center">There are no books available.</h4>
+                    <h4 class="text-center">You have no works yet.</h4>
                 </div>
                 <div class="text-center">
                   <a asp-controller="Books" asp-action="Write" >

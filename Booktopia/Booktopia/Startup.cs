@@ -2,9 +2,12 @@ namespace Booktopia
 {
     using Booktopia.Data;
     using Booktopia.Infrastructure;
+    using Booktopia.Services.Authors;
+    using Booktopia.Services.Books;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Identity;
+    using Microsoft.AspNetCore.Mvc;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
@@ -37,7 +40,17 @@ namespace Booktopia
                 .AddEntityFrameworkStores<BooktopiaDbContext>();
 
             services.
-                AddControllersWithViews();
+                AddControllersWithViews(options =>
+                {
+                    options.Filters.Add<AutoValidateAntiforgeryTokenAttribute>();
+                }
+                );
+
+            services.
+                AddTransient<IAuthorService, AuthorService>();
+
+            services.
+                AddTransient<IBookService, BookService>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

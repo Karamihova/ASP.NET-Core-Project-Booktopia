@@ -33,6 +33,11 @@
                 return BadRequest();
             }
 
+            if (this.data.Authors.Any(a => a.Name == author.Name))
+            {
+                ModelState.AddModelError(nameof(author.Name), "Your name is already in use. Try with a pseudonym.");
+            }
+
             if (!ModelState.IsValid)
             {
                 return View(author);
