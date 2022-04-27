@@ -45,7 +45,6 @@
               </li>
               <partial name="_LoginPartial" />
             </ul>
-            @*<partial name="_LoginPartial" />*@
           </div>
         </nav>
       </div>
@@ -61,13 +60,93 @@
 <section class="info_section layout_padding2" >
     <div class="container">
       <div class="row">
+          <div class="col-md-6 col-lg-3 info-col">
+          <div class="info_contact">
+            <h4>
+              Booktopia
+            </h4>
+            <div class="contact_link_box">
+              <a asp-controller="Home" asp-action="Index">
+                <span>
+                  Home
+                </span>
+              </a>
+              <a asp-controller="Books" asp-action="All">
+                <span>
+                  Books
+                </span>
+              </a>
+              <a asp-controller="Categories" asp-action="All">
+                <span>
+                  Categories
+                </span>
+              </a>
+              <a asp-controller="Quotes" asp-action="All">
+                <span>
+                  Quotes
+                </span>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-3 info-col">
+          <div class="info_contact">
+            <h4>
+              Company Partners
+            </h4>
+            <div class="contact_link_box">
+              <a href="">
+                <span>
+                  Hermes
+                </span>
+              </a>
+              <a href="">
+                <span>
+                  Helicon
+                </span>
+              </a>
+              <a href="">
+                <span>
+                  Orange
+                </span>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-3 info-col">
+          <div class="info_contact">
+            <h4>
+              Contact Us
+            </h4>
+            <div class="contact_link_box">
+              <a href="">
+                <i class="fa fa-map-marker" aria-hidden="true"></i>
+                <span>
+                  Maria Luisa Bullevard 202A
+                </span>
+              </a>
+              <a href="">
+                <i class="fa fa-phone" aria-hidden="true"></i>
+                <span>
+                  Call +01 1234567890
+                </span>
+              </a>
+              <a href="">
+                <i class="fa fa-envelope" aria-hidden="true"></i>
+                <span>
+                  booktopia@gmail.com
+                </span>
+              </a>
+            </div>
+          </div>
+        </div>
         <div class="col-md-6 col-lg-3 info-col">
           <div class="info_detail">
             <h4>
               About Us
             </h4>
             <p>
-              Vitae aut explicabo fugit facere alias distinctio, exem commodi mollitia minusem dignissimos atque asperiores incidunt vel voluptate iste
+              Booktopia is a free website for reading and writing stories. Follow us on our social platforms:
             </p>
             <div class="info_social">
               <a href="">
@@ -85,34 +164,6 @@
             </div>
           </div>
         </div>
-        <div class="col-md-6 col-lg-3 info-col">
-          <div class="info_contact">
-            <h4>
-              Address
-            </h4>
-            <div class="contact_link_box">
-              <a href="">
-                <i class="fa fa-map-marker" aria-hidden="true"></i>
-                <span>
-                  Location
-                </span>
-              </a>
-              <a href="">
-                <i class="fa fa-phone" aria-hidden="true"></i>
-                <span>
-                  Call +01 1234567890
-                </span>
-              </a>
-              <a href="">
-                <i class="fa fa-envelope" aria-hidden="true"></i>
-                <span>
-                  demo@gmail.com
-                </span>
-              </a>
-            </div>
-          </div>
-        </div>
-        
     </div>
   </section>
 
