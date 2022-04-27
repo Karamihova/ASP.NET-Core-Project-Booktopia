@@ -25,6 +25,11 @@
                 .Books
                 .Where(b => b.Author.UserId == userId));
 
+        public IEnumerable<BookServiceModel> ByCategoryType(string category)
+            => GetBooks(this.data
+                .Books
+                .Where(b => b.Category.Type == category));
+
         private static IEnumerable<BookServiceModel> GetBooks(IQueryable<Book> bookQuery)
             => bookQuery
                 .Select(b => new BookServiceModel
@@ -37,5 +42,6 @@
                     Author = b.Author.Name
                 })
                 .ToList();
+
     }
 }

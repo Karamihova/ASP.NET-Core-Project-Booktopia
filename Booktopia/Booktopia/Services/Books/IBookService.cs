@@ -5,6 +5,9 @@
     public interface IBookService
     {
         IEnumerable<BookServiceModel> All();
+
         IEnumerable<BookServiceModel> ByAuthor(string userId);
+
+        IEnumerable<BookServiceModel> ByCategoryType(string category);
     }
 }

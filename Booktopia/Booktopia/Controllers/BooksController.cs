@@ -89,7 +89,15 @@
             return View(authorBooks);
         }
 
-        [Route("Books/{id:int}")]
+        [Route("Books/ByCategoryType/{category}")]
+        public IActionResult ByCategoryType(string category)
+        {
+            var booksByCategory = this.bookService.ByCategoryType(category);
+
+            return View(booksByCategory);
+        }
+
+        [Route("Books/ById/{id:int}")]
         public IActionResult ById(int id)
         {
             var book = this.data.Books.FirstOrDefault(b => b.Id == id);

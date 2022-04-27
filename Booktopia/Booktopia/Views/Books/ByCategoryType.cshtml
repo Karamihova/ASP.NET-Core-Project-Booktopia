@@ -1,21 +1,30 @@
 ﻿@model IEnumerable<BookServiceModel>
 
 @{
-    ViewData["Title"] = "My Works";
+    var category = @Model.Select(b => b.Category).FirstOrDefault();
+    if(category == null)
+    {
+        ViewData["Title"] = "Empty Category";
+
+    }
+    else
+    {
+        ViewData["Title"] = category;
+    }
+
 }
 
 <section class="blog_section layout_padding">
     <div class="container">
       <div class="heading_container heading_center">
         <h2>
-         My Works
         </h2>
       </div>
 
       @if(!Model.Any())
             {
                 <div>
-                    <h4 class="text-center">You have no works yet.</h4>
+                    <h4 class="text-center">There are no books in this category.</h4>
                 </div>
                 <div class="text-center">
                   <a asp-controller="Books" asp-action="Write" >
