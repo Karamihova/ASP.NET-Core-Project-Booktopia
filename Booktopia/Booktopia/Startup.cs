@@ -1,6 +1,7 @@
 namespace Booktopia
 {
     using Booktopia.Data;
+    using Booktopia.Data.Models;
     using Booktopia.Infrastructure;
     using Booktopia.Services.Authors;
     using Booktopia.Services.Books;
@@ -30,13 +31,14 @@ namespace Booktopia
                 .AddDatabaseDeveloperPageExceptionFilter();
 
             services
-                .AddDefaultIdentity<IdentityUser>(options =>
+                .AddDefaultIdentity<User>(options =>
                 {
                     options.Password.RequireDigit = false;
                     options.Password.RequireLowercase = false;
                     options.Password.RequireNonAlphanumeric = false;
                     options.Password.RequireUppercase = false;
                 })
+                .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<BooktopiaDbContext>();
 
             services.

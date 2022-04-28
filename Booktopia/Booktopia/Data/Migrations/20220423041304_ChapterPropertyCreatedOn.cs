@@ -1,8 +1,8 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore.Migrations;
-
-namespace Booktopia.Data.Migrations
+﻿namespace Booktopia.Data.Migrations
 {
+    using System;
+    using Microsoft.EntityFrameworkCore.Migrations;
+
     public partial class ChapterPropertyCreatedOn : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)

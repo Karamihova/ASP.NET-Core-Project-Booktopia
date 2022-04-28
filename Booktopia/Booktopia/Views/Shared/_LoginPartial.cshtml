@@ -1,7 +1,8 @@
-﻿@using Microsoft.AspNetCore.Identity
+﻿@using Booktopia.Data.Models
+@using Microsoft.AspNetCore.Identity
 
-@inject SignInManager<IdentityUser> SignInManager
-@inject UserManager<IdentityUser> UserManager
+@inject SignInManager<User> SignInManager
+@inject UserManager<User> UserManager
 @inject IAuthorService Authors
 
 @if (SignInManager.IsSignedIn(User))
@@ -21,9 +22,9 @@
         <a  class="nav-link" asp-area="" asp-controller="Authors" asp-action="Become">Become Author</a>
     </li>
     }
-    <li class="nav-item">
+    @*<li class="nav-item">
         <a  class="nav-link" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Account</a>
-    </li>
+    </li>*@
     <li class="nav-item">
         <form  class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
             <button  type="submit" class="nav-link btn btn-link">Logout</button>

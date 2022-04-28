@@ -1,11 +1,10 @@
 ﻿namespace Booktopia.Data
 {
     using Booktopia.Data.Models;
-    using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore;
 
-    public class BooktopiaDbContext : IdentityDbContext
+    public class BooktopiaDbContext : IdentityDbContext<User>
     {
         public BooktopiaDbContext(DbContextOptions<BooktopiaDbContext> options)
             : base(options)
@@ -57,7 +56,7 @@
                 .OnDelete(DeleteBehavior.Restrict);
 
             builder.Entity<Author>()
-                .HasOne<IdentityUser>()
+                .HasOne<User>()
                 .WithOne()
                 .HasForeignKey<Author>(a => a.UserId)
                 .OnDelete(DeleteBehavior.Restrict);

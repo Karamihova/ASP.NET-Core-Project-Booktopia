@@ -42,6 +42,14 @@
         {
             public const int MaxType = 20;
         }
+
+        public class User
+        {
+            public const int MinFullName = 3;
+            public const int MaxFullName = 40;
+            public const int MinPassword = 6;
+            public const int MaxPassword = 100;
+        }
         
     }
 }
