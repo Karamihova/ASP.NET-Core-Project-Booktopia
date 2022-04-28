@@ -1,6 +1,6 @@
-﻿namespace Booktopia.Models.Books
+﻿namespace Booktopia.Services.Books
 {
-    public class BookCategoryViewModel
+    public class BookCategoryServiceModel
     {
         public int Id { get; set; }
 

@@ -1,10 +1,11 @@
 ﻿namespace Booktopia.Models.Books
 {
+    using Booktopia.Services.Books;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using static Data.DataConstants;
     using static Data.DataConstants.Book;
-    public class WriteBookFormModel
+    public class BookFormModel
     {
         [Required(ErrorMessage = "Title of book is required.")]
         [StringLength(TitleMaxLength, MinimumLength = TitleMinLength, ErrorMessage = "Title should be between {2} and {1} characters long.")]
@@ -23,7 +24,7 @@
         [Required(ErrorMessage = "Category type is required.")]
         public int CategoryId { get; set; }
 
-        public ICollection<BookCategoryViewModel> Categories { get; set; }
+        public IEnumerable<BookCategoryServiceModel> Categories { get; set; }
 
     }
 }

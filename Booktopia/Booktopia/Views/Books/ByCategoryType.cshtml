@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<BookServiceModel>
 
 @{
-    var category = @Model.Select(b => b.Category).FirstOrDefault();
+    var category = @Model.Select(b => b.CategoryName).FirstOrDefault();
     if(category == null)
     {
         ViewData["Title"] = "Empty Category";

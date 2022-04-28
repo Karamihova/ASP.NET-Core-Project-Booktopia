@@ -10,7 +10,7 @@
                           <img src="@book.ImageUrl" style="height: 400px;" alt="@book.Title" >
                           <h4 class="blog_date">
                             <span>
-                              @book.Author
+                              @book.AuthorName
                             </span>
                           </h4>
                         </div>
@@ -18,14 +18,27 @@
                           <h5>
                               @book.Title
                           </h5>
-                          <h6 class="font-italic font-weight-bold">@book.Category</h6>
+                          <h6 class="font-italic font-weight-bold">@book.CategoryName</h6>
                           <p>
                             @book.Annotation...
                           </p>
-                          <a asp-controller="Books" asp-action="ById" asp-route-id="@book.Id">
+                          
+                          @if(ViewBag.AllowBookEdit == true)
+                          {
+                            <a asp-controller="Books" asp-action="Edit" asp-route-id="@book.Id">
+                            Edit
+                            </a>
+                            <a asp-controller="Books" asp-action="Edit" asp-route-id="@book.Id">
+                            Delete
+                            </a>
+                            }
+                    else
+                    {
+                        <a asp-controller="Books" asp-action="ById" asp-route-id="@book.Id">
                             Read More
                           </a>
-                        </div>
+                    }
+                </div>
                       </div>
                     </div>
             }

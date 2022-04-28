@@ -4,6 +4,7 @@
     using Booktopia.Data.Models;
     using Booktopia.Infrastructure;
     using Booktopia.Models.Books;
+    using Booktopia.Services.Authors;
     using Booktopia.Services.Books;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
@@ -12,12 +13,12 @@
 
     public class BooksController : Controller
     {
-        private readonly BooktopiaDbContext data;
         private readonly IBookService bookService;
-        public BooksController(BooktopiaDbContext data, IBookService bookService)
+        private readonly IAuthorService authorService;
+        public BooksController(IBookService bookService, IAuthorService authorService)
         {
-            this.data = data;
             this.bookService = bookService;
+            this.authorService = authorService;
         }
 
         public IActionResult All()
@@ -30,54 +31,44 @@
         [Authorize]
         public IActionResult Write()
         {
-            if (!UserIsAuthor())
+            if (!authorService.IsAuthor(this.User.GetId()))
             {
                 return RedirectToAction(nameof(AuthorsController.Become), "Authors");
             }
 
-            return View(new WriteBookFormModel
+            return View(new BookFormModel
             {
-                Categories = this.GetCategories()
+                Categories = this.bookService.AllCategories()
             });
         }
 
         [HttpPost]
         [Authorize]
-        public IActionResult Write(WriteBookFormModel book)
+        public IActionResult Write(BookFormModel book)
         {
-            var authorId = this.data
-                .Authors
-                .Where(a => a.UserId == this.User.GetId())
-                .Select(a => a.Id)
-                .FirstOrDefault();
+            var authorId = this.authorService.IdByUser(this.User.GetId());
 
             if (authorId == 0)
             {
                 return RedirectToAction(nameof(AuthorsController.Become), "Authors");
             }
 
-            if (!data.Categories.Any(c => c.Id == book.CategoryId))
+            if (!bookService.CategoryExists(book.CategoryId))
             {
                 ModelState.AddModelError(nameof(book.CategoryId), "Category type is not valid.");
             }
 
             if (!ModelState.IsValid)
             {
-                book.Categories = this.GetCategories();
+                book.Categories = this.bookService.AllCategories();
                 return View(book);
             }
 
-            var bookData = new Book
-            {
-                Title = book.Title,
-                Annotation = book.Annotation,
-                ImageUrl = book.ImageUrl,
-                CategoryId = book.CategoryId,
-                AuthorId = authorId
-            };
-
-            this.data.Books.Add(bookData);
-            this.data.SaveChanges();
+            this.bookService.Create(book.Title,
+                book.Annotation,
+                book.ImageUrl,
+                book.CategoryId,
+                authorId);
 
             return RedirectToAction(nameof(All));
         }
@@ -100,46 +91,82 @@
         [Route("Books/ById/{id:int}")]
         public IActionResult ById(int id)
         {
-            var book = this.data.Books.FirstOrDefault(b => b.Id == id);
-            if (book == null)
+            var bookData = this.bookService.ById(id);
+
+            if (bookData == null)
             {
                 return BadRequest();
             }
 
-            var bookData = this.data
-                .Books
-                .Where(b => b.Id == id)
-                .Select(b => new BookViewModel
-                {
-                    Id = b.Id,
-                    Title=b.Title,
-                    Annotation=b.Annotation,
-                    ImageUrl =b.ImageUrl,
-                    CategoryType = b.Category.Type,
-                    AuthorName = b.Author.Name,
-                    ChaptersCount = b.Chapters.Count() == null ? 0 : b.Chapters.Count(),
-                    ReviewsCount = b.Reviews.Count() == null ? 0 : b.Reviews.Count(),
-                    Rating = b.Reviews.Average(r => r.Rating) == null ? 0 : b.Reviews.Average(r => r.Rating),
-                    QuotesCount = b.Quotes.Count() == null ? 0 : b.Quotes.Count()
-                })
-                .FirstOrDefault();
-
             return View(bookData);
         }
-
-        private bool UserIsAuthor()
-            => this.data
-                .Authors
-                .Any(a => a.UserId == this.User.GetId());
-
-        private ICollection<BookCategoryViewModel> GetCategories()
-            => this.data
-                .Categories
-                .Select(c => new BookCategoryViewModel
-                {
-                    Id = c.Id,
-                    Type = c.Type
-                }).ToList();
         
+        [Authorize]
+        public IActionResult Edit(int id)
+        {
+            var userId = this.User.GetId();
+
+            if (!authorService.IsAuthor(userId))
+            {
+                return RedirectToAction(nameof(AuthorsController.Become), "Authors");
+            }
+
+            var book = this.bookService.Details(id);
+            if (book.UserId != userId)
+            {
+                return Unauthorized();
+            }
+
+            return View(new BookFormModel
+            {
+                Title = book.Title,
+                Annotation = book.Annotation,
+                ImageUrl=book.ImageUrl,
+                CategoryId = book.CategoryId,
+                Categories = this.bookService.AllCategories()
+            });
+        }
+
+        [HttpPost]
+        [Authorize]
+        public IActionResult Edit(int id, BookFormModel book)
+        {
+            var authorId = this.authorService.IdByUser(this.User.GetId());
+
+            if (authorId == 0)
+            {
+                return RedirectToAction(nameof(AuthorsController.Become), "Authors");
+            }
+
+            if (!bookService.CategoryExists(book.CategoryId))
+            {
+                ModelState.AddModelError(nameof(book.CategoryId), "Category type is not valid.");
+            }
+
+            if (!ModelState.IsValid)
+            {
+                book.Categories = this.bookService.AllCategories();
+                return View(book);
+            }
+
+            if (!this.bookService.IsByAuthor(id, authorId))
+            {
+                return BadRequest();
+            }
+
+            var bookIsEdited = this.bookService.Edit(
+                id,
+                book.Title,
+                book.Annotation,
+                book.ImageUrl,
+                book.CategoryId);
+
+            if (!bookIsEdited)
+            {
+                return BadRequest();
+            }
+
+            return RedirectToAction(nameof(All));
+        }
     }
 }

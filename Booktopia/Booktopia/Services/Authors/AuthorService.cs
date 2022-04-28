@@ -10,6 +10,13 @@
         public AuthorService(BooktopiaDbContext data) 
             => this.data = data;
 
+        public int IdByUser(string userId)
+            => this.data
+            .Authors
+            .Where(a => a.UserId == userId)
+            .Select(a => a.Id)
+            .FirstOrDefault();
+
         public bool IsAuthor(string userId) 
             => this.data
             .Authors
