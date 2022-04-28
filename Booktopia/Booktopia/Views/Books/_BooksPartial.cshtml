@@ -23,7 +23,7 @@
                             @book.Annotation...
                           </p>
                           
-                          @if(ViewBag.AllowBookEdit == true)
+                          @if(ViewBag.AllowBookEdit == true || User.IsAdmin())
                           {
                             <a asp-controller="Books" asp-action="Edit" asp-route-id="@book.Id">
                             Edit
@@ -32,12 +32,12 @@
                             Delete
                             </a>
                             }
-                    else
-                    {
-                        <a asp-controller="Books" asp-action="ById" asp-route-id="@book.Id">
-                            Read More
-                          </a>
-                    }
+                           else
+                           {
+                            <a asp-controller="Books" asp-action="ById" asp-route-id="@book.Id">
+                                Read More
+                            </a>
+                            }
                 </div>
                       </div>
                     </div>

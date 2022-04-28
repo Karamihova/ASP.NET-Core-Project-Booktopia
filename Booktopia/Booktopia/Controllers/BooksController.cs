@@ -106,13 +106,13 @@
         {
             var userId = this.User.GetId();
 
-            if (!authorService.IsAuthor(userId))
+            if (!authorService.IsAuthor(userId) && !User.IsAdmin())
             {
                 return RedirectToAction(nameof(AuthorsController.Become), "Authors");
             }
 
             var book = this.bookService.Details(id);
-            if (book.UserId != userId)
+            if (book.UserId != userId && !User.IsAdmin())
             {
                 return Unauthorized();
             }
@@ -133,7 +133,7 @@
         {
             var authorId = this.authorService.IdByUser(this.User.GetId());
 
-            if (authorId == 0)
+            if (authorId == 0 && !User.IsAdmin())
             {
                 return RedirectToAction(nameof(AuthorsController.Become), "Authors");
             }
@@ -149,7 +149,7 @@
                 return View(book);
             }
 
-            if (!this.bookService.IsByAuthor(id, authorId))
+            if (!this.bookService.IsByAuthor(id, authorId) && !User.IsAdmin())
             {
                 return BadRequest();
             }
