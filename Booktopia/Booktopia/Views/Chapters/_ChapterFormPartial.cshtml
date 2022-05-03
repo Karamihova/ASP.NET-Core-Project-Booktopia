@@ -1,0 +1,30 @@
+﻿@model ChapterFormModel
+
+<section class="contact_section layout_padding">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-md-9 ">
+          <div class="heading_container heading_center">
+            <h2>
+              @ViewData["Title"]
+            </h2>
+          </div>
+          <form method="post">
+              <div class="form-group">
+                <label asp-for="Title"></label>
+                <input asp-for="Title" class="form-control" placeholder="Untitled book">
+                <span asp-validation-for="Title" class="small text-danger"></span>
+              </div>
+              <div class="form-group">
+                <label asp-for="Text"></label>
+                <textarea asp-for="Text" class="form-control" placeholder="What is the book about..." rows="8"></textarea>
+                <span asp-validation-for="Text" class="small text-danger"></span>
+              </div>
+               <div class="btn-box">
+                  <input class="input-button" type="submit" value="@ViewBag.Button"/> 
+               </div>
+           </form>
+        </div>
+      </div>
+    </div>
+  </section>

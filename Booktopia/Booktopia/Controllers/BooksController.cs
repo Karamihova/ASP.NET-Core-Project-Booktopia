@@ -64,7 +64,9 @@
                 return View(book);
             }
 
-            this.bookService.Create(book.Title,
+            this.bookService
+                .Create
+                (book.Title,
                 book.Annotation,
                 book.ImageUrl,
                 book.CategoryId,

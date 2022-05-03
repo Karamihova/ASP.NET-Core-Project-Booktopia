@@ -21,5 +21,11 @@
             => this.data
             .Authors
             .Any(a => a.UserId == userId);
+
+        public bool IsAuthorOfBook(int authorId, int bookId)
+         => this.data
+            .Books
+            .Any(b => b.Id == bookId && b.AuthorId == authorId);
+
     }
 }

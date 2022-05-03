@@ -1,0 +1,12 @@
+﻿@model ChapterFormModel
+
+@{
+    ViewData["Title"] = "Write Chapter";
+    ViewBag.Button = "Create";
+}
+
+<partial name="_ChapterFormPartial" model="@Model" />
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
