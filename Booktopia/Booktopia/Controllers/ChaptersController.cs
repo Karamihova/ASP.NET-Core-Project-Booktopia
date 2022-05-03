@@ -58,6 +58,9 @@
             return RedirectToAction("ById", "Books", new {id = chapter.BookId});
         }
 
-        
+        //public IActionResult All(int bookId)
+        //{
+
+        //}
     }
 }

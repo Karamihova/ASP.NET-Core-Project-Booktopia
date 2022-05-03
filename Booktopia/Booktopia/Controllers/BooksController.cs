@@ -1,15 +1,11 @@
 ﻿namespace Booktopia.Controllers
 {
-    using Booktopia.Data;
-    using Booktopia.Data.Models;
     using Booktopia.Infrastructure;
     using Booktopia.Models.Books;
     using Booktopia.Services.Authors;
     using Booktopia.Services.Books;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
-    using System.Collections.Generic;
-    using System.Linq;
 
     public class BooksController : Controller
     {
@@ -170,5 +166,18 @@
 
             return RedirectToAction(nameof(All));
         }
+
+        public IActionResult Chapters(int id)
+        {
+            var bookChapters = this.bookService.Chapters(id);
+
+            if (bookChapters == null)
+            {
+                return BadRequest();
+            }
+
+            return View(bookChapters);
+        }
+
     }
 }

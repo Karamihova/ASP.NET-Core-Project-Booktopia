@@ -24,7 +24,7 @@
             <p>
               @Model.Annotation
             </p>
-            <a href="">
+            <a asp-controller="Books" asp-action="Chapters" asp-route-id="@Model.Id">
               @Model.ChaptersCount Chapters
             </a>
             <a href="">

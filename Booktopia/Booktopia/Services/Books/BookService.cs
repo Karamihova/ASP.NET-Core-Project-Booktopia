@@ -123,6 +123,25 @@
             .Books
             .Any(b => b.Id == id && b.AuthorId == authorId);
 
+        public BookChapterViewModel Chapters(int id)
+            => this.data
+                 .Books
+                 .Where(b => b.Id == id)
+                 .Select(b => new BookChapterViewModel
+                 {
+                     Id = b.Id,
+                     Title = b.Title,
+                     AuthorName = b.Author.Name,
+                     Chapters = b.Chapters
+                     .Select(c => new BookChapterServiceModel
+                     {
+                         Id = c.Id,
+                         Title = c.Title
+                     })
+                     .ToList()
+                 }).FirstOrDefault();
+        
+
         private static IEnumerable<BookServiceModel> GetBooks(IQueryable<Book> bookQuery)
             => bookQuery
                 .Select(b => new BookServiceModel
@@ -135,7 +154,6 @@
                     AuthorName = b.Author.Name
                 })
                 .ToList();
-
         
     }
 }

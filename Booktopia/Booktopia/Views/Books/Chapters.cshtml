@@ -1,0 +1,53 @@
+﻿@model BookChapterViewModel
+
+@{
+    ViewData["Title"] = "Chapters";
+    int counter = 1;
+}
+
+<section class="about_section layout_padding">
+    <div class="container">
+      <div class="heading_container heading_center">
+        <h2>
+          "@Model.Title" by <i>@Model.AuthorName</i> 
+        </h2>
+
+        <h2>
+          Chapters
+        </h2>
+
+        @if(!Model.Chapters.Any())
+        {
+                <div>
+                    <h4 class="text-center" style="margin-top: 40px;">There are no chapters available.</h4>
+            </div>
+        }
+        else
+        {
+            <table class="table table-striped col-md-6 align-content-center" style="margin-top: 40px;">
+              <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Title</th>
+                </tr>
+              </thead>
+              <tbody>
+                    @foreach(var chapter in Model.Chapters)
+                    {
+                        <tr>
+                          <th scope="row">@counter</th>
+                          <td><a href="#" style="color: #44b89d;">@chapter.Title</a></td>
+                        </tr>
+
+                        counter++;
+                    }
+                    
+              </tbody>
+            </table>
+        }
+
+      </div>
+
+        
+    </div>
+  </section>

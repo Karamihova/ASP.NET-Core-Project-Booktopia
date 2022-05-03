@@ -17,6 +17,8 @@
 
         BookViewModel ById(int id);
 
+        BookChapterViewModel Chapters(int id);
+
         bool CategoryExists(int categoryId);
 
         bool IsByAuthor(int id, int authorId);
