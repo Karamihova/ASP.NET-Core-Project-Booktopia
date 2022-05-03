@@ -2,15 +2,26 @@
 {
     using Booktopia.Data;
     using Booktopia.Data.Models;
+    using Booktopia.Models.Chapters;
+    using System.Linq;
 
     public class ChapterService : IChapterService
     {
         private readonly BooktopiaDbContext data;
 
-        public ChapterService(BooktopiaDbContext data)
-        {
-            this.data = data;
-        }
+        public ChapterService(BooktopiaDbContext data) 
+            => this.data = data;
+
+        public ChapterViewModel ById(int id)
+            => this.data
+            .Chapters
+            .Where(c => c.Id == id)
+            .Select(c => new ChapterViewModel
+            {
+                Title = c.Title,
+                Text = c.Text
+            })
+            .FirstOrDefault();
 
         public int Create(string title, string text, int bookId)
         {

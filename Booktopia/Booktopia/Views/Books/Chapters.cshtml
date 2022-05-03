@@ -36,7 +36,7 @@
                     {
                         <tr>
                           <th scope="row">@counter</th>
-                          <td><a href="#" style="color: #44b89d;">@chapter.Title</a></td>
+                          <td><a asp-controller="Chapters" asp-action="ById" asp-route-id="@chapter.Id" style="color: #44b89d;">@chapter.Title</a></td>
                         </tr>
 
                         counter++;

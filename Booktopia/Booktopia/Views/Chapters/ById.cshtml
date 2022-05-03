@@ -1,0 +1,20 @@
+﻿@model ChapterViewModel
+
+@{
+    ViewData["Title"] = @Model.Title;
+}
+
+<section class="about_section layout_padding">
+    <div class="container ">
+        <div class="heading_container heading_center" style="margin-bottom: 35px;">
+              <h2>
+                @Model.Title 
+              </h2>
+              <div class="detail-box col-md-9">
+                <p>
+                  @Model.Text
+                </p>
+              </div>
+        </div>
+    </div>
+  </section>

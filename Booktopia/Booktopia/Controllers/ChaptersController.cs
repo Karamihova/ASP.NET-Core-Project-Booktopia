@@ -55,12 +55,21 @@
                 chapter.BookId
                 );
 
-            return RedirectToAction("ById", "Books", new {id = chapter.BookId});
+            return RedirectToAction("Chapters", "Books", new {id = chapter.BookId});
         }
 
-        //public IActionResult All(int bookId)
-        //{
+        [Authorize]
+        public IActionResult ById(int id)
+        {
+            var chapterData = chapterService.ById(id);
 
-        //}
+            if (chapterData == null)
+            {
+                return BadRequest();
+            }
+
+            return View(chapterData);
+        }
+
     }
 }
