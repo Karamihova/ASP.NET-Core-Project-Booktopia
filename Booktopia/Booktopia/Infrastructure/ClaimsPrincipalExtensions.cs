@@ -9,6 +9,5 @@
 
         public static bool IsAdmin(this ClaimsPrincipal user)
             => user.IsInRole(AdministratorRole);
-        
     }
 }

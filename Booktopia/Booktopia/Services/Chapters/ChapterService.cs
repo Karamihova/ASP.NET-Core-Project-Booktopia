@@ -9,19 +9,30 @@
     {
         private readonly BooktopiaDbContext data;
 
-        public ChapterService(BooktopiaDbContext data) 
+        public ChapterService(BooktopiaDbContext data)
             => this.data = data;
 
         public ChapterViewModel ById(int id)
-            => this.data
+        {
+            var userId = this.data
+                .Books
+                .Where(b => b.Chapters.Any(c => c.Id == id))
+                .Select(b => b.Author.UserId)
+                .FirstOrDefault();
+
+            var chapterId = this.data
             .Chapters
             .Where(c => c.Id == id)
             .Select(c => new ChapterViewModel
             {
                 Title = c.Title,
-                Text = c.Text
+                Text = c.Text,
+                UserId = userId
             })
             .FirstOrDefault();
+
+            return chapterId;
+        }
 
         public int Create(string title, string text, int bookId)
         {

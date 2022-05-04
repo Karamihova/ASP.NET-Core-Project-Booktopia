@@ -140,7 +140,24 @@
                      })
                      .ToList()
                  }).FirstOrDefault();
-        
+
+        public bool Delete(int id)
+        {
+            var book = this.data
+                .Books
+                .Find(id);
+
+            if (book == null)
+            {
+                return false;
+            }
+
+            book.Chapters.Clear();
+            this.data.Books.Remove(book);
+            this.data.SaveChanges();
+
+            return true;
+        }
 
         private static IEnumerable<BookServiceModel> GetBooks(IQueryable<Book> bookQuery)
             => bookQuery

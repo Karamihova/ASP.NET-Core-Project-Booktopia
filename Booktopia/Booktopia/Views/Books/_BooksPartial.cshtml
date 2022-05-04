@@ -28,19 +28,23 @@
                             <a asp-controller="Books" asp-action="Edit" asp-route-id="@book.Id">
                             Edit
                             </a>
-                            <a asp-controller="Books" asp-action="Edit" asp-route-id="@book.Id">
+                            <a asp-controller="Books" asp-action="Delete" asp-route-id="@book.Id">
                             Delete
                             </a>
-                            <a asp-controller="Chapters" asp-action="Write" asp-route-bookId="@book.Id">
-                            Write Chapter
-                            </a>
+                            if(!User.IsAdmin())
+                            { 
+                                <a asp-controller="Chapters" asp-action="Write" asp-route-bookId="@book.Id">
+                                    Write Chapter
+                                </a>
                             }
+                           
+                          }
                            else
                            {
                             <a asp-controller="Books" asp-action="ById" asp-route-id="@book.Id">
                                 Read More
                             </a>
-                            }
+                           }
                 </div>
                       </div>
                     </div>

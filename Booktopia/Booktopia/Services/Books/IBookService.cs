@@ -17,6 +17,8 @@
 
         BookViewModel ById(int id);
 
+        bool Delete(int id);
+
         BookChapterViewModel Chapters(int id);
 
         bool CategoryExists(int categoryId);

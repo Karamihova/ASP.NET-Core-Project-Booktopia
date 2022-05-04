@@ -4,17 +4,21 @@
     ViewData["Title"] = @Model.Title;
 }
 
-<section class="about_section layout_padding">
+<section class="blog_section layout_padding">
     <div class="container ">
         <div class="heading_container heading_center" style="margin-bottom: 35px;">
               <h2>
                 @Model.Title 
               </h2>
               <div class="detail-box col-md-9">
-                <p>
+                <p align="left" style="margin-top: 20px;">
                   @Model.Text
                 </p>
               </div>
+            @if (User.IsAdmin() || (User.GetId() == Model.UserId))
+            {
+                <a href="#">Edit</a>
+            }
         </div>
     </div>
   </section>

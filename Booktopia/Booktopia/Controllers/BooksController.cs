@@ -164,7 +164,7 @@
                 return BadRequest();
             }
 
-            return RedirectToAction(nameof(All));
+            return RedirectToAction("ById", "Books", new {id = id});
         }
 
         public IActionResult Chapters(int id)
@@ -177,6 +177,18 @@
             }
 
             return View(bookChapters);
+        }
+
+        public IActionResult Delete(int id)
+        {
+            var bookIsDeleted = this.bookService.Delete(id);
+
+            if (!bookIsDeleted)
+            {
+                return BadRequest();
+            }
+
+            return RedirectToAction(nameof(All));
         }
 
     }
