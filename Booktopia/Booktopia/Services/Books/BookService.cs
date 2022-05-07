@@ -152,7 +152,22 @@
                 return false;
             }
 
-            book.Chapters.Clear();
+            var chapterIds = this.data
+                .Chapters
+                .Where(c => c.BookId == id)
+                .Select(c => c.Id)
+                .ToList();
+
+            if (chapterIds.Any())
+            {
+                foreach (var chapterId in chapterIds)
+                {
+                    var chapter = this.data.Chapters.Find(chapterId);
+                    this.data.Remove(chapter);
+                    this.data.SaveChanges();
+                }
+            }
+
             this.data.Books.Remove(book);
             this.data.SaveChanges();
 

@@ -179,8 +179,18 @@
             return View(bookChapters);
         }
 
+        [Authorize]
         public IActionResult Delete(int id)
         {
+            var authorId = this.authorService.IdByUser(this.User.GetId());
+            var isAuthorOfBook = this.authorService.IsAuthorOfBook(authorId, id);
+
+
+            if (!isAuthorOfBook && !User.IsAdmin())
+            {
+                return Unauthorized();
+            }
+
             var bookIsDeleted = this.bookService.Delete(id);
 
             if (!bookIsDeleted)
@@ -188,7 +198,15 @@
                 return BadRequest();
             }
 
-            return RedirectToAction(nameof(All));
+            if (isAuthorOfBook)
+            {
+                return RedirectToAction(nameof(ByAuthor));
+            }
+            else
+            {
+                return RedirectToAction(nameof(All));
+            }
+
         }
 
     }
