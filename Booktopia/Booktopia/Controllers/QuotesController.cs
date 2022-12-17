@@ -15,7 +15,8 @@ namespace Booktopia.Controllers
 
         public IActionResult All()
         {
-            return View();
+            var quotes = this.quoteService.All();
+            return View(quotes);
         }
 
         public IActionResult Add()
