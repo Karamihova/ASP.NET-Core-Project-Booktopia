@@ -1,0 +1,12 @@
+﻿@model QuoteFormModel
+
+@{
+    ViewData["Title"] = "Add Quote";
+    ViewBag.Button = "Add";
+}
+
+<partial name="_QuoteFormPartial" model="@Model" />
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

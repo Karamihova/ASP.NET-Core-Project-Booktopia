@@ -6,6 +6,7 @@ namespace Booktopia
     using Booktopia.Services.Authors;
     using Booktopia.Services.Books;
     using Booktopia.Services.Chapters;
+    using Booktopia.Services.Quotes;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Identity;
@@ -57,6 +58,9 @@ namespace Booktopia
 
             services
                 .AddTransient<IChapterService, ChapterService>();
+
+            services
+                .AddTransient<IQuoteService, QuoteService>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
