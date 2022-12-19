@@ -1,5 +1,10 @@
-﻿@{
+﻿@model HomeInfoServiceModel
+
+@{
     ViewData["Title"] = "Home Page";
+    var readerText = Model.UsersCount > 1 ? "readers" : "reader";
+    var authorText = Model.AuthorsCount > 1 ? "authors" : "author";
+    var bookText = Model.BooksCount > 1 ? "stories" : "story";
 }
 
     <section class="slider_section ">
@@ -18,7 +23,7 @@
                       storytelling platform
                     </h1>
                     <p>
-                      Booktopia connects a global community of 90 million readers and writers through the power of story.
+                      Booktopia connects a global community of @(Model.UsersCount) @readerText and @(Model.AuthorsCount) @authorText through the power of @(Model.BooksCount) @bookText.
                     </p>
                     <a asp-controller="Books" asp-action="All">
                       Start Reading
@@ -51,7 +56,7 @@
                     <p>
                       Booktopia Studios discovers untapped, unsigned and talented writers on Booktopia and connects them to global multi-media entertainment companies.
                     </p>
-                    <a href="">
+                    <a asp-controller="Books" asp-action="Write">
                       Learn more
                     </a>
                   </div>
