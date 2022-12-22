@@ -25,18 +25,22 @@
 
         bool IsByAuthor(int id, int authorId);
 
-        int Create(
+        int Create
+            (
                 string title,
                 string annotation,
                 string imageUrl,
                 int categoryId,
-                int authorId);
+                int authorId
+            );
 
-        bool Edit(
+        bool Edit
+            (
                 int id,
                 string title,
                 string annotation,
                 string imageUrl,
-                int categoryId);
+                int categoryId
+            );
     }
 }

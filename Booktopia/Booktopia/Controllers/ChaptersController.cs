@@ -71,8 +71,78 @@
             return View(chapterData);
         }
 
-        //public IActionResult Edit(int id)
-        //public IActionResult Delete(int id)
+        [Authorize]
+        public IActionResult Edit(int id)
+        {
+            var userId = this.User.GetId();
+            var authorId = this.authorService.IdByUser(userId);
+            if (!authorService.IsAuthorOfBook(authorId, id) && !User.IsAdmin())
+            {
+                return BadRequest();
+            }
+
+            var chapter = this.chapterService.ById(id);
+            return View(new ChapterFormModel
+            {
+                Title = chapter.Title,
+                Text = chapter.Text,
+                BookId = chapter.BookId
+            });
+
+        }
+
+        [HttpPost]
+        [Authorize]
+        public IActionResult Edit(int id, ChapterFormModel chapter)
+        {
+            var authorId = this.authorService.IdByUser(this.User.GetId());
+
+            if (authorId == 0 && !User.IsAdmin())
+            {
+                return RedirectToAction(nameof(AuthorsController.Become), "Authors");
+            }
+
+            if (!authorService.IsAuthorOfBook(authorId, id) && !User.IsAdmin())
+            {
+                return BadRequest();
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return View(chapter);
+            }
+
+            var chapterIsEdited = this.chapterService.Edit(id, chapter.Text, chapter.Title);
+            if (!chapterIsEdited)
+            {
+                return BadRequest();
+            }
+
+            return RedirectToAction("ById", "Chapters", new { id = id });
+        }
+
+        [Authorize]
+        public IActionResult Delete(int id)
+        {
+            var authorId = this.authorService.IdByUser(this.User.GetId());
+            var bookId = this.chapterService.FindBookId(id);
+            var isAuthorOfBook = this.authorService.IsAuthorOfBook(authorId, bookId);
+
+
+            if (!isAuthorOfBook && !User.IsAdmin())
+            {
+                return Unauthorized();
+            }
+
+
+            var chapterIsDeleted = this.chapterService.Delete(id);
+            if (!chapterIsDeleted)
+            {
+                return BadRequest();
+            }
+
+            return RedirectToAction("Chapters", "Books", new {id = bookId});
+        }
 
     }
 }

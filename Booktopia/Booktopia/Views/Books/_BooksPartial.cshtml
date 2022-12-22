@@ -31,6 +31,9 @@
                             <a asp-controller="Books" asp-action="Delete" asp-route-id="@book.Id">
                             Delete
                             </a>
+                            <a asp-controller="Books" asp-action="ById" asp-route-id="@book.Id">
+                            Read More
+                            </a>
                             if(!User.IsAdmin())
                             { 
                                 <a asp-controller="Chapters" asp-action="Write" asp-route-bookId="@book.Id">

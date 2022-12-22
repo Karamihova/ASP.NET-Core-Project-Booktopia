@@ -25,9 +25,11 @@
             .Where(c => c.Id == id)
             .Select(c => new ChapterViewModel
             {
+                Id = id,
                 Title = c.Title,
                 Text = c.Text,
-                UserId = userId
+                UserId = userId,
+                BookId = c.BookId
             })
             .FirstOrDefault();
 
@@ -47,6 +49,47 @@
             this.data.SaveChanges();
 
             return chapterData.Id;
+        }
+
+        public bool Delete(int id)
+        {
+            var chapter = this.data.Chapters.Find(id);
+            if(chapter == null)
+            {
+                return false;
+            }
+
+            this.data.Chapters.Remove(chapter);
+            this.data.SaveChanges();
+            return true;
+        }
+
+        public bool Edit(int id, string text, string title)
+        {
+            var chapterData = this.data.Chapters.Find(id);
+
+            if(chapterData == null)
+            {
+                return false;
+            }
+
+            chapterData.Text = text;
+            chapterData.Title = title;
+            this.data.SaveChanges();
+
+            return true;
+        }
+
+        public int FindBookId(int id)
+        {
+            var chapter = this.data.Chapters.Find(id);
+
+            if(chapter == null)
+            {
+                return 0;
+            }
+
+            return chapter.BookId;
         }
     }
 }
