@@ -42,5 +42,7 @@
                 string imageUrl,
                 int categoryId
             );
+
+        int FindByTitle(string title);
     }
 }

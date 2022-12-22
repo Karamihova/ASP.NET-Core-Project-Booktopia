@@ -9,6 +9,7 @@
     {
         private readonly BooktopiaDbContext data;
 
+
         public QuoteService(BooktopiaDbContext data)
         {
             this.data = data;
@@ -16,11 +17,15 @@
 
         public int Create(string text, string bookTitle)
         {
-            var book = data.Books.Where(b => b.Title == bookTitle).FirstOrDefault();
-            if(book == null)
+            var searchedBook = this.data.Books.FirstOrDefault(b => b.Title == bookTitle);
+           
+            if(searchedBook == null)
             {
                 return -1;
             }
+
+            var bookId = searchedBook.Id;
+            var book = this.data.Books.Find(bookId);
 
             var quoteData = new Quote
             {

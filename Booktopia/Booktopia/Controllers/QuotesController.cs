@@ -1,16 +1,19 @@
 ﻿using Booktopia.Models.Quotes;
+using Booktopia.Services.Books;
 using Booktopia.Services.Quotes;
 using Microsoft.AspNetCore.Mvc;
+using System.Linq;
 
 namespace Booktopia.Controllers
 {
     public class QuotesController : Controller
     {
         private readonly IQuoteService quoteService;
-
-        public QuotesController(IQuoteService quoteService)
+        private readonly IBookService bookService;
+        public QuotesController(IQuoteService quoteService, IBookService bookService)
         {
             this.quoteService = quoteService;
+            this.bookService = bookService;
         }
 
         public IActionResult All()
@@ -32,11 +35,18 @@ namespace Booktopia.Controllers
                 return View(quote);
             }
 
+
+            var bookId = this.bookService.FindByTitle(quote.BookTitle);
+            if(bookId == -1)
+            {
+                return BadRequest();
+            }
+
             var quoteId = this.quoteService.Create(quote.Text, quote.BookTitle);
 
             if(quoteId == -1)
             {
-                return BadRequest("There is no book with this title");
+                return BadRequest("There is no book with this title.");
             }
 
             return RedirectToAction("All", "Quotes");

@@ -168,6 +168,22 @@
                 }
             }
 
+            var quoteIds = this.data
+                .Quotes
+                .Where(q => q.BookId == id)
+                .Select(q => q.Id)
+                .ToList();
+
+            if (quoteIds.Any())
+            {
+                foreach(var quoteId in quoteIds)
+                {
+                    var quote = this.data.Quotes.Find(quoteId);
+                    this.data.Remove(quote);
+                    this.data.SaveChanges();
+                }
+            }
+
             this.data.Books.Remove(book);
             this.data.SaveChanges();
 
@@ -186,6 +202,16 @@
                     AuthorName = b.Author.Name
                 })
                 .ToList();
-        
+
+        public int FindByTitle(string title)
+        {
+            var book = this.data.Books.FirstOrDefault(b => b.Title == title);
+            if(book == null)
+            {
+                return -1;
+            }
+
+            return book.Id;
+        }
     }
 }

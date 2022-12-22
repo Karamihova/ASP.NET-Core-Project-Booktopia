@@ -11,5 +11,7 @@
 
         [Required(ErrorMessage = "Book title of quote is required.")]
         public string BookTitle { get; set; }
+
+        public int BookId { get; set; }
     }
 }
