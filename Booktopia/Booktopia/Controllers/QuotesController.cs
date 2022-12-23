@@ -49,7 +49,7 @@ namespace Booktopia.Controllers
 
             if(quoteId == -1)
             {
-                return BadRequest("There is no book with this title.");
+                return BadRequest("Book title or quote does not exist.");
             }
 
             return RedirectToAction("All", "Quotes");

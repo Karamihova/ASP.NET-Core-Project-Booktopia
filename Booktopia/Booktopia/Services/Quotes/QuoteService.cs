@@ -17,15 +17,21 @@
 
         public int Create(string text, string bookTitle)
         {
-            var searchedBook = this.data.Books.FirstOrDefault(b => b.Title == bookTitle);
+            var searchedBookId = this.data.Books.Where(b => b.Title == bookTitle).Select(b => b.Id).FirstOrDefault();
            
-            if(searchedBook == null)
+            if(searchedBookId == 0)
             {
                 return -1;
             }
 
-            var bookId = searchedBook.Id;
-            var book = this.data.Books.Find(bookId);
+            
+            var book = this.data.Books.Find(searchedBookId);
+            var chapters = this.data.Chapters.Where(c => c.BookId == searchedBookId).ToList();
+
+            if(!chapters.Any(c => c.Text.Contains(text)))
+            {
+                return -1;
+            }
 
             var quoteData = new Quote
             {
@@ -33,6 +39,7 @@
                 BookId = book.Id
             };
 
+            book.Quotes.Add(quoteData);
             this.data.Quotes.Add(quoteData);
             this.data.SaveChanges();
 

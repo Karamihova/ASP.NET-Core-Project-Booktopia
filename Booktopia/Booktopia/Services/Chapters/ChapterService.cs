@@ -45,6 +45,9 @@
                 BookId = bookId
             };
 
+            var book = this.data.Books.Find(bookId);
+            book.Chapters.Add(chapterData);
+
             this.data.Chapters.Add(chapterData);
             this.data.SaveChanges();
 
