@@ -1,6 +1,7 @@
 ﻿using Booktopia.Models.Quotes;
 using Booktopia.Services.Books;
 using Booktopia.Services.Quotes;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
 
@@ -22,12 +23,14 @@ namespace Booktopia.Controllers
             return View(quotes);
         }
 
+        [Authorize]
         public IActionResult Add()
         {
             return View();
         }
 
         [HttpPost]
+        [Authorize]
         public IActionResult Add(QuoteFormModel quote)
         {
             if (!ModelState.IsValid)
